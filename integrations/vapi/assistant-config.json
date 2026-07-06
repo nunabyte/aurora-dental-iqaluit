@@ -1,0 +1,48 @@
+{
+  "comment": "Konfigurasi asisten Vapi (nilai setara tersedia di Retell). Ganti {{...}} sebelum import.",
+  "name": "Sila - Aurora Dental Iqaluit",
+  "firstMessage": "Aurora Dental, this is Sila — how can I help you today?",
+  "firstMessageMode": "assistant-speaks-first",
+  "model": {
+    "provider": "anthropic",
+    "model": "claude-sonnet-5",
+    "temperature": 0.4,
+    "systemPromptFile": "system-prompt.md",
+    "toolsFile": "tools.json"
+  },
+  "transcriber": {
+    "provider": "deepgram",
+    "model": "nova-3",
+    "language": "multi",
+    "comment": "nova-3 multilingual menangani EN+FR code-switching. Inuktitut ASR belum tersedia komersial (fase berikutnya)."
+  },
+  "voice": {
+    "provider": "11labs",
+    "voiceId": "{{ELEVENLABS_VOICE_ID}}",
+    "stability": 0.5,
+    "similarityBoost": 0.75,
+    "commentIU": "Untuk ucapan Inuktitut (sapaan/nama hari libur): gunakan Azure Speech voice iu-Cans-CA 'SiqiniqNeural' atau iu-Latn-CA via TTS fallback per-frasa."
+  },
+  "silenceTimeoutSeconds": 12,
+  "maxDurationSeconds": 900,
+  "backgroundSound": "off",
+  "responseDelaySeconds": 0.4,
+  "serverUrl": "{{BRIDGE_URL}}/vapi/event",
+  "serverUrlSecret": "{{WEBHOOK_SHARED_SECRET}}",
+  "endCallFunctionEnabled": true,
+  "recordingEnabled": true,
+  "hipaaEnabled": false,
+  "commentCompliance": "Kanada: PIPEDA + kebijakan teritori Nunavut, bukan HIPAA. Simpan rekaman/transkrip di region Kanada bila memungkinkan; enkripsi PII di database (lihat blueprint).",
+  "analysisPlan": {
+    "summaryPrompt": "Summarize this dental clinic call in 2 sentences: caller intent, outcome, any follow-up needed.",
+    "structuredDataSchema": {
+      "type": "object",
+      "properties": {
+        "intent": { "type": "string" },
+        "outcome": { "type": "string" },
+        "language": { "type": "string" },
+        "emergency": { "type": "boolean" }
+      }
+    }
+  }
+}

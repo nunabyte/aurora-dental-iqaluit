@@ -201,9 +201,16 @@
     return /^[a-zA-ZÀ-ÿ᐀-ᙿ' .-]{3,40}$/.test(t) && t.split(/\s+/).length <= 4
       ? t.replace(/\b\w/g, function (c) { return c.toUpperCase(); }) : null;
   }
+  // Aturan lokal: 7 digit saja = nomor Iqaluit/Nunavut → kode area 867.
+  // Nomor lengkap (10/11 digit, dengan/ tanpa +1) juga diterima.
   function extractPhone(text) {
-    const m = text.match(/[+0-9][0-9 ().-]{6,}/);
-    return m && m[0].replace(/[^0-9]/g, '').length >= 7 ? m[0].trim() : null;
+    const m = text.match(/[+0-9][0-9 ().-]{5,}/);
+    if (!m) return null;
+    let d = m[0].replace(/[^0-9]/g, '');
+    if (d.length === 11 && d[0] === '1') d = d.slice(1);
+    if (d.length === 7) d = '867' + d;               // lokal → area code 867
+    if (d.length !== 10) return null;
+    return '+1 (' + d.slice(0, 3) + ') ' + d.slice(3, 6) + '-' + d.slice(6);
   }
 
   /* ---------- agent ---------- */
@@ -290,7 +297,14 @@
       case 'greet': return this.greeting();
       case 'thanks': return { messages: [pick('thanks', L)] };
       case 'whatAreYou': return { messages: [pick('whatAreYou', L)] };
-      case 'hours': return { messages: [pick('hours', L)], quick: this.q(['book']) };
+      case 'hours': {
+        const hol = S.nextHoliday(14);
+        const holNote = hol
+          ? (L === 'FR' ? '\n\n📅 À noter : nous serons fermés le **' + new Date(hol.date + 'T12:00:00').toLocaleDateString('fr-CA', { weekday: 'long', month: 'long', day: 'numeric' }) + '** (' + (hol.fr || hol.name) + ').'
+            : '\n\n📅 Heads-up: we\'re closed **' + new Date(hol.date + 'T12:00:00').toLocaleDateString('en-CA', { weekday: 'long', month: 'long', day: 'numeric' }) + '** for ' + hol.name + (hol.iu ? ' (' + hol.iu + ')' : '') + '.')
+          : '';
+        return { messages: [pick('hours', L) + holNote], quick: this.q(['book']) };
+      }
       case 'location': return { messages: [fill(pick('location', L), { address: c.address })] };
       case 'insurance': return { messages: [pick('insurance', L)], quick: this.q(['book']) };
       case 'pricing': return this._pricing(text);

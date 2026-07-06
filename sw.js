@@ -1,5 +1,5 @@
 /* Aurora Dental Iqaluit — service worker (offline demo cache) */
-const CACHE = 'aurora-iqaluit-v1';
+const CACHE = 'aurora-iqaluit-v2';
 const ASSETS = [
   './', './index.html', './patient.html',
   './css/app.css', './css/patient.css',

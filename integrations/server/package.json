@@ -1,0 +1,11 @@
+{
+  "name": "aurora-bridge",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Aurora Dental Iqaluit - omnichannel bridge server (Vapi/Retell tools, Twilio SMS/WA, Postmark email, website chat). Zero dependencies.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": { "node": ">=18" }
+}

@@ -46,6 +46,21 @@
       { date: 'Jul 20', title: 'Kimmirut visiting week', sub: 'Dr. Carter travelling' },
       { date: 'Sep 12', title: 'School dental screening day', sub: 'Aqsarniit School' }
     ],
+    // Libur resmi Nunavut 2026 — klinik tutup; Sila tetap menjawab & tidak menawarkan slot.
+    holidays: [
+      { date: '2026-01-01', name: "New Year's Day", fr: "Jour de l'An", iu: 'Arraagusiq Nuutaaq' },
+      { date: '2026-04-03', name: 'Good Friday', fr: 'Vendredi saint', iu: '' },
+      { date: '2026-05-18', name: 'Victoria Day', fr: 'Journée des patriotes', iu: '' },
+      { date: '2026-07-01', name: 'Canada Day', fr: 'Fête du Canada', iu: '' },
+      { date: '2026-07-09', name: 'Nunavut Day', fr: 'Jour du Nunavut', iu: 'Nunavut Ullunga' },
+      { date: '2026-08-03', name: 'Civic Holiday', fr: "Premier lundi d'août", iu: '' },
+      { date: '2026-09-07', name: 'Labour Day', fr: 'Fête du Travail', iu: '' },
+      { date: '2026-09-30', name: 'National Day for Truth and Reconciliation', fr: 'Journée de la vérité et de la réconciliation', iu: '' },
+      { date: '2026-10-12', name: 'Thanksgiving', fr: 'Action de grâce', iu: '' },
+      { date: '2026-11-11', name: 'Remembrance Day', fr: 'Jour du Souvenir', iu: '' },
+      { date: '2026-12-25', name: 'Christmas Day', fr: 'Noël', iu: 'Quviasugvik' },
+      { date: '2026-12-26', name: 'Boxing Day', fr: 'Lendemain de Noël', iu: '' }
+    ],
     pharmacies: [
       { name: 'Northmart Pharmacy', sub: 'Rx via secure email + WA', status: 'LINKED' },
       { name: 'QGH Outpatient Pharmacy', sub: 'Rx via secure fax/email', status: 'LINKED' }

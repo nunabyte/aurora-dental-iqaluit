@@ -1,0 +1,194 @@
+{
+  "comment": "Function tools untuk Vapi/Retell — semua endpoint dilayani integrations/server (ganti BRIDGE_URL dengan URL deploy Anda). Pause-filler ada di 'messages'.",
+  "tools": [
+    {
+      "type": "function",
+      "async": false,
+      "function": {
+        "name": "get_clinic_status",
+        "description": "Get today's clinic status: open/closed right now, today's hours, next Nunavut holiday closure, blizzard mode. Call this before answering ANY question about hours, holidays or weather.",
+        "parameters": { "type": "object", "properties": {} }
+      },
+      "server": { "url": "{{BRIDGE_URL}}/tools/get_clinic_status" },
+      "messages": [{ "type": "request-start", "content": "Let me check today's schedule..." }]
+    },
+    {
+      "type": "function",
+      "async": false,
+      "function": {
+        "name": "lookup_patient",
+        "description": "Look up an existing patient by name and/or phone. If caller gave only 7 digits, prepend area code 867. Returns patient record or found=false.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string", "description": "Full name as the caller said it" },
+            "phone": { "type": "string", "description": "Phone number; 7-digit local numbers become +1-867-XXX-XXXX" }
+          },
+          "required": ["name"]
+        }
+      },
+      "server": { "url": "{{BRIDGE_URL}}/tools/lookup_patient" },
+      "messages": [
+        { "type": "request-start", "content": "Let me pull up your record real quick..." },
+        { "type": "request-failed", "content": "Hmm, I'm having trouble with that — let me try once more..." }
+      ]
+    },
+    {
+      "type": "function",
+      "async": false,
+      "function": {
+        "name": "create_patient",
+        "description": "Register a new patient with minimal info. DOB, insurance details and allergies are collected later via intake form — never block a booking on them.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "phone": { "type": "string" },
+            "email": { "type": "string" },
+            "insurance": { "type": "string", "description": "NIHB, GN plan, Sun Life, etc. or 'none'" },
+            "language_pref": { "type": "string", "enum": ["EN", "FR", "IU"] }
+          },
+          "required": ["name", "phone"]
+        }
+      },
+      "server": { "url": "{{BRIDGE_URL}}/tools/create_patient" },
+      "messages": [{ "type": "request-start", "content": "One moment while I get you set up..." }]
+    },
+    {
+      "type": "function",
+      "async": false,
+      "function": {
+        "name": "find_available_slots",
+        "description": "Find bookable slots. Respects clinic hours, Nunavut holidays, Saturday hygiene-only rule, per-operatory conflicts, and blizzard mode (no same-day afternoon slots during a storm). Read at most 3 options aloud.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "service_id": { "type": "string", "enum": ["exam", "hygiene", "filling", "crown", "extraction", "denture", "kids", "whitening", "emergency"] },
+            "day_preference": { "type": "string", "description": "Optional weekday the caller prefers, e.g. 'friday'" }
+          },
+          "required": ["service_id"]
+        }
+      },
+      "server": { "url": "{{BRIDGE_URL}}/tools/find_available_slots" },
+      "messages": [{ "type": "request-start", "content": "Checking the calendar now — one moment..." }]
+    },
+    {
+      "type": "function",
+      "async": false,
+      "function": {
+        "name": "create_appointment",
+        "description": "Book the chosen slot. Returns confirmation with provider and operatory. Reminders (48h + 2h, patient's language) are scheduled automatically.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "patient_id": { "type": "string" },
+            "service_id": { "type": "string" },
+            "slot_start": { "type": "string", "description": "ISO datetime from find_available_slots" },
+            "op": { "type": "string" },
+            "provider": { "type": "string" },
+            "notes": { "type": "string" }
+          },
+          "required": ["patient_id", "service_id", "slot_start", "op", "provider"]
+        }
+      },
+      "server": { "url": "{{BRIDGE_URL}}/tools/create_appointment" },
+      "messages": [{ "type": "request-start", "content": "Alright, locking that in for you..." }]
+    },
+    {
+      "type": "function",
+      "async": false,
+      "function": {
+        "name": "lookup_appointment",
+        "description": "Find a patient's upcoming appointments (for reschedule/cancel/confirmation questions).",
+        "parameters": {
+          "type": "object",
+          "properties": { "patient_id": { "type": "string" } },
+          "required": ["patient_id"]
+        }
+      },
+      "server": { "url": "{{BRIDGE_URL}}/tools/lookup_appointment" },
+      "messages": [{ "type": "request-start", "content": "Let me find your appointment..." }]
+    },
+    {
+      "type": "function",
+      "async": false,
+      "function": {
+        "name": "cancel_appointment",
+        "description": "Cancel an appointment and release the slot to the waitlist. Always offer a new time afterwards.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "appointment_id": { "type": "string" },
+            "reason": { "type": "string" }
+          },
+          "required": ["appointment_id"]
+        }
+      },
+      "server": { "url": "{{BRIDGE_URL}}/tools/cancel_appointment" },
+      "messages": [{ "type": "request-start", "content": "No problem — updating that now..." }]
+    },
+    {
+      "type": "function",
+      "async": true,
+      "function": {
+        "name": "escalate_emergency",
+        "description": "EMERGENCY: pages the on-call dentist and front desk immediately, holds the next emergency slot. Use for pain 8+/10, trauma, swelling with fever, uncontrolled bleeding.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "caller_phone": { "type": "string" },
+            "symptoms": { "type": "string" },
+            "pain_scale": { "type": "integer" }
+          },
+          "required": ["symptoms"]
+        }
+      },
+      "server": { "url": "{{BRIDGE_URL}}/tools/escalate_emergency" },
+      "messages": [{ "type": "request-start", "content": "I'm paging our on-call dentist right now — stay with me..." }]
+    },
+    {
+      "type": "function",
+      "async": true,
+      "function": {
+        "name": "log_complaint",
+        "description": "Log a patient complaint verbatim for the practice manager, who calls back within one business day.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "patient_id": { "type": "string" },
+            "complaint": { "type": "string" }
+          },
+          "required": ["complaint"]
+        }
+      },
+      "server": { "url": "{{BRIDGE_URL}}/tools/log_complaint" }
+    },
+    {
+      "type": "function",
+      "async": true,
+      "function": {
+        "name": "log_call_summary",
+        "description": "ALWAYS call at end of call: writes the conversation summary to the staff dashboard inbox.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "intent": { "type": "string" },
+            "outcome": { "type": "string", "enum": ["booked", "rescheduled", "cancelled", "answered", "escalated", "handoff"] },
+            "patient_name": { "type": "string" },
+            "summary": { "type": "string" },
+            "language": { "type": "string", "enum": ["EN", "FR", "IU"] }
+          },
+          "required": ["intent", "outcome", "summary"]
+        }
+      },
+      "server": { "url": "{{BRIDGE_URL}}/tools/log_call_summary" }
+    },
+    {
+      "type": "transferCall",
+      "destinations": [
+        { "type": "number", "number": "+18679794400", "message": "Connecting you to our front desk now — one moment." },
+        { "type": "number", "number": "+18679790911", "message": "Connecting you to our on-call dentist right now — please stay on the line." }
+      ]
+    }
+  ]
+}

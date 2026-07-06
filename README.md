@@ -29,6 +29,14 @@ Implementasi penuh desain **`RE/ai-receptionist-dentist-app-iqaluit`** (Claude D
 
 Booking/catatan dari chat & console tersimpan di `localStorage` dan langsung muncul di seluruh aplikasi (satu browser = satu database demo). Reset di **Setup → Reset demo data**.
 
+## Omnichannel (telepon · WA · SMS · email · chatbot)
+
+Blueprint riset + integrasi lengkap: **[docs/omnichannel-ai-receptionist.md](docs/omnichannel-ai-receptionist.md)**.
+Artefak siap pakai di [`integrations/`](integrations):
+- `vapi/system-prompt.md` — persona suara Sila (jeda natural, aturan nomor 7-digit→867, libur Nunavut, protokol darurat)
+- `vapi/tools.json` + `vapi/assistant-config.json` — function calling untuk Vapi/Retell
+- `server/` — bridge server Node zero-dependency yang memakai ulang engine Sila untuk voice-tools, `/chat`, webhook Twilio (SMS/WA), dan email inbound — semua percakapan tercatat ke inbox console staf
+
 ## Arsitektur
 
 Vanilla HTML/CSS/JS, PWA, tanpa build step. Font Public Sans, tema putih elegan utara (`#f8f9fb` / navy `#3b4a6b`).

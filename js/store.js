@@ -128,6 +128,20 @@
       return c;
     },
 
+    /* ---- holidays (Nunavut) ---- */
+    isHoliday: function (date) {
+      const key = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+      return (this.clinic.holidays || []).find(function (h) { return h.date === key; }) || null;
+    },
+    nextHoliday: function (withinDays) {
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      const limit = today.getTime() + (withinDays || 14) * 86400000;
+      return (this.clinic.holidays || []).find(function (h) {
+        const t = new Date(h.date + 'T12:00:00').getTime();
+        return t >= today.getTime() && t <= limit;
+      }) || null;
+    },
+
     /* ---- availability engine ---- */
     opBusy: function (opId, start, duration) {
       const s = start.getTime(), e = s + duration * 60000;
@@ -148,6 +162,7 @@
         const date = new Date(); date.setDate(date.getDate() + dOff);
         const hrs = this.clinic.hours[date.getDay()];
         if (!hrs) continue;
+        if (this.isHoliday(date)) continue; // libur Nunavut — klinik tutup
         // Sabtu hanya hygiene
         if (date.getDay() === 6 && svc.ops.indexOf('Op 3') === -1) continue;
         for (let mins = hrs.open; mins + svc.duration <= hrs.close && slots.length < limit; mins += 30) {

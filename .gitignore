@@ -2,3 +2,5 @@ RE/
 *.zip
 .claude/
 .vercel/
+integrations/server/db.json
+integrations/server/.env
