@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aurora Dental Iqaluit — Staff Console</title>
+  <meta name="description" content="Aurora Dental Iqaluit staff console — with Sila ᓯᓚ, the trilingual AI receptionist that never sleeps, even at −40°.">
+  <meta name="theme-color" content="#1d2438">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div id="loginScreen" class="login-grid">
+    <div class="login-left">
+      <div class="aurora-line"></div>
+      <div class="login-brand">
+        <div class="mark">A</div>
+        <div><b>Aurora Dental</b><small>IQALUIT · NUNAVUT</small></div>
+      </div>
+      <div class="login-hero">
+        <h1>The front desk that never sleeps — even at −40°.</h1>
+        <p>Sila ᓯᓚ answers calls, texts and chats in English, French and Inuktitut, watches the weather, and keeps your chairs full.</p>
+        <div class="lang-pills"><span>English</span><span>Français</span><span>ᐃᓄᒃᑎᑐᑦ</span></div>
+      </div>
+    </div>
+    <div class="login-right">
+      <div class="login-box">
+        <h2>Sign in</h2>
+        <div class="sub">Select your account — access follows your role.</div>
+        <div class="role-list" id="roleList"></div>
+        <div class="login-pass">
+          <input type="password" id="passInput" placeholder="Password" autocomplete="off">
+          <div class="row"><span>Two-factor required for Owner &amp; Admin</span><b>Forgot password?</b></div>
+          <div class="login-err" id="loginErr"></div>
+          <button class="btn-signin" id="signInBtn">Sign in</button>
+          <div class="login-demo-hint">Demo: pick a role and use password <b>aurora</b> (or leave blank).</div>
+        </div>
+        <div class="login-patient-link">Patient? <a href="patient.html">Chat with Sila on our website →</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APP SHELL -->
+  <div id="appShell" class="shell hide">
+    <aside class="sidebar">
+      <div class="side-brand">
+        <div class="mark">A</div>
+        <div><b>Aurora Dental</b><small>IQALUIT · NU</small></div>
+      </div>
+      <nav class="nav" id="navList"></nav>
+      <div class="side-foot">
+        <div class="sila-live"><b>✦ Sila ᓯᓚ</b> <span class="live">● LIVE</span><br>On the phones &amp; chat. Routine replies send automatically.</div>
+        <div class="side-user" id="sideUser"></div>
+      </div>
+    </aside>
+    <div class="main">
+      <div id="stormBanner"></div>
+      <div class="topbar">
+        <div><h1 id="pageTitle"></h1><div class="date" id="pageDate"></div></div>
+        <div class="right">
+          <div class="weather-chip" id="weatherChip">−29° <span class="sub">/ −38° wind chill</span></div>
+          <div class="lang-switch" id="langSwitch"></div>
+        </div>
+      </div>
+      <div class="page" id="page"></div>
+    </div>
+  </div>
+
+  <div id="modalRoot"></div>
+  <div id="toastRoot"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/weather.js"></script>
+  <script src="js/sila.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aurora Dental Iqaluit — Book anytime with Sila ᓯᓚ</title>
+  <meta name="description" content="Modern family dentistry in Iqaluit, Nunavut. Chat with Sila — our AI receptionist — in English, French or Inuktitut, 24/7.">
+  <meta name="theme-color" content="#1d2438">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/patient.css">
+</head>
+<body>
+
+  <header class="hd">
+    <div class="wrap">
+      <div class="mark">A</div>
+      <div><b>Aurora Dental</b><small>IQALUIT · NUNAVUT</small></div>
+      <nav>
+        <a href="#services">Services</a>
+        <a href="#visit">Visit us</a>
+        <a href="index.html">Staff sign-in</a>
+        <button class="btn-chat keep" data-chat>💬 Chat with Sila</button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wx" id="wxRibbon"></div>
+
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <h1>The front desk that never sleeps — even at −40°.</h1>
+        <p>Sila ᓯᓚ answers calls, texts and chats in English, French and Inuktitut, watches the weather, and books you in — day, night or blizzard.</p>
+        <div class="pills"><span>English</span><span>Français</span><span>ᐃᓄᒃᑎᑐᑦ</span></div>
+        <div class="ctas">
+          <button class="btn-hero" data-chat>💬 Book with Sila now</button>
+          <button class="btn-hero ghost" onclick="location.href='#services'">See services</button>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="h"><div class="sila-orb">✦</div><div><b>Sila ᓯᓚ</b><small>● online — replies in seconds</small></div></div>
+        <div class="m p">Hey, I chipped my front tooth this morning 😬</div>
+        <div class="m s">Thanks for telling me — any pain or sensitivity?</div>
+        <div class="m p">No pain, just feels sharp</div>
+        <div class="m s">Good news — not urgent, but let's assess it today. Dr. Roy can see you at 11:15. Booked ✓</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="eyebrow">SERVICES &amp; PRICES</div>
+      <h2>Everything your smile needs</h2>
+      <p class="sub">Direct billing for NIHB, GN employee plan, Sun Life and more — most patients pay nothing at the desk.</p>
+      <div class="grid3" id="svcGrid"></div>
+    </div>
+  </section>
+
+  <section class="strip">
+    <div class="wrap">
+      <div class="eyebrow">MEET SILA ᓯᓚ</div>
+      <h2>Your AI receptionist, made for the North</h2>
+      <div class="grid3">
+        <div class="tile"><div class="ic">🌙</div><b>Awake 24/7</b><p>Toothache at midnight? Sila books the morning's first slot while you're still on the couch.</p></div>
+        <div class="tile"><div class="ic">🗣️</div><b>Three languages</b><p>English, Français, ᐃᓄᒃᑎᑐᑦ — Sila switches automatically, mid-conversation.</p></div>
+        <div class="tile"><div class="ic">❄️</div><b>Weather-smart</b><p>Blizzard incoming? Sila reschedules you before the roads close, and holds priority slots for fly-in patients.</p></div>
+        <div class="tile"><div class="ic">🚨</div><b>Knows an emergency</b><p>Severe pain or swelling pages the on-call dentist instantly — no phone queue.</p></div>
+        <div class="tile"><div class="ic">📋</div><b>20-second registration</b><p>New in town? Name, number, coverage — done. Intake forms arrive on your phone.</p></div>
+        <div class="tile"><div class="ic">🤝</div><b>Humans one tap away</b><p>Say "talk to a person" any time — Marie and the team take over with full context.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="visit">
+    <div class="wrap">
+      <div class="eyebrow">VISIT US</div>
+      <h2>Bldg 1085, Mivvik Street</h2>
+      <div class="info-grid">
+        <div class="tile">
+          <span class="chip green" id="openChip">…</span>
+          <table class="hours-t" id="hoursT" style="margin-top:12px"></table>
+        </div>
+        <div class="tile">
+          <b style="margin-top:0">Contact</b>
+          <p>📍 Bldg 1085, Mivvik Street, Iqaluit, NU X0A 0H0<br>📞 (867) 979-4400 · 🚨 On-call: (867) 979-0911<br>✉️ hello@auroradental.ca</p>
+          <b>Coverage</b>
+          <p>NIHB / FNIHB direct billing · GN employee plan · Sun Life · Canada Life · Blue Cross · Manulife</p>
+        </div>
+        <div class="tile">
+          <b style="margin-top:0">Visiting clinics</b>
+          <p>🛩️ Kimmirut — health centre partnership, one week per month. <span class="chip amber">NEXT: JUL 20</span></p>
+          <p>Fly-in patient? Sila coordinates appointments with flight schedules and the patient travel program.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <b style="color:var(--ink)">Aurora Dental Iqaluit</b> — bright smiles under the northern lights.<br>
+      <a href="index.html">Staff console</a> · Demo application — all patients and data are fictional.
+    </div>
+  </footer>
+
+  <!-- CHAT -->
+  <button class="fab" id="fab" aria-label="Chat with Sila">✦</button>
+  <div class="panel closed" id="panel" role="dialog" aria-label="Sila AI receptionist">
+    <div class="head">
+      <div class="sila-orb">✦</div>
+      <div><b>Sila ᓯᓚ</b><div class="st"><i></i> AI receptionist — always awake</div></div>
+      <div class="langs" id="langBtns">
+        <button data-l="EN" class="on">EN</button><button data-l="FR">FR</button><button data-l="IU">ᐃᓄᒃᑎᑐᑦ</button>
+      </div>
+      <button class="x" id="closeChat">✕</button>
+    </div>
+    <div class="log" id="log"></div>
+    <div class="quick" id="quick"></div>
+    <form class="inp" id="form">
+      <input id="text" placeholder="Message Sila…" autocomplete="off" maxlength="300">
+      <button type="submit" aria-label="Send">➤</button>
+    </form>
+    <div class="foot-note">Sila never gives medical advice · staff review every conversation · humans available any time</div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/weather.js"></script>
+  <script src="js/sila.js"></script>
+  <script src="js/patient.js"></script>
+</body>
+</html>

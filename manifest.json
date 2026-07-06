@@ -1,0 +1,12 @@
+{
+  "name": "Aurora Dental Iqaluit",
+  "short_name": "Aurora Dental",
+  "description": "Aurora Dental Iqaluit — staff console with Sila ᓯᓚ, the trilingual AI receptionist.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f8f9fb",
+  "theme_color": "#1d2438",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
